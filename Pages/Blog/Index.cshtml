@@ -1,0 +1,61 @@
+﻿@page
+@model CS58_Razor09EF.Pages_Blog.IndexModel
+@using CS58_Razor09EF.Helpers
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+
+
+@{
+    var pagingModel = new PagingModel()
+    {
+                currentPage = Model.currentPage,
+                countPages = Model.countPages,
+                generateUrl = ((int? p) => @Url.Page("/Blog/Index", new { p = p }))
+    };
+}
+
+<partial name="_Paging" model="@pagingModel"/>
+
+<h1>Danh sách các bài viết</h1>
+<form method="get" asp-page="./Index" >
+    <label>Search</label>
+    <input name="SearchString" value=""/>
+    <button type="submit">Search</button>
+</form>
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create Article Mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].PublishDate)
+            </th>        
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Article) {
+        <tr>
+            <td>@(++i)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>        
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-success">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
