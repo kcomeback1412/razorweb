@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CS58_Razor09EF.Models
+
+@inject SignInManager<AppUser> singInManager
+@inject UserManager<AppUser> userManager
+
+@{
+
+}
+
+
+<ul class="navbar-nav">
+	@if (singInManager.IsSignedIn(User))
+	{
+		<li class="nav-item">
+			<a  href="/Identity/Account/Manage"
+			   class="nav-link text-dark">d</a>
+			
+		</li>
+		<li class="nav-item">
+			<a asp-area="Identity" asp-page="/Account/Logout"
+			   class="nav-link text-dark">Logout</a>
+		</li>
+	}
+	else
+
+	{
+		<li class="nav-item">
+			<a asp-area="Identity" asp-page="/Account/Register"
+			   class="nav-link text-dark">
+				Register
+			</a>
+		</li>
+		<li class="nav-item">
+			<a asp-area="Identity" asp-page="/Account/Login"
+			   class="nav-link text-dark">Login</a>
+		</li>
+	}
+
+
+</ul>
