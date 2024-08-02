@@ -34,10 +34,11 @@ namespace CS58_Razor09EF.Areas.Identity.Pages.Account
             }
             else
             {
-                // This needs to be a redirect so that the browser performs a new
-                // request and the identity for the user gets updated.
-                return RedirectToPage();
-            }
+                returnUrl = Url.Content("~/");
+				// This needs to be a redirect so that the browser performs a new
+				// request and the identity for the user gets updated.
+				return LocalRedirect(returnUrl);
+			}
         }
     }
 }
