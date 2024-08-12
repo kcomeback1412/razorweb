@@ -1,9 +1,11 @@
 ﻿using CS58_Razor09EF.Models;
+using CS58_Razor09EF.Models;
 using CS58_Razor09EF.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace CS58_Razor09EF.Config
 {
@@ -63,6 +65,14 @@ namespace CS58_Razor09EF.Config
 				option.LogoutPath = "/logout";
 				option.AccessDeniedPath = "/khongduoctruycap";
 			});
+
+			services.AddAuthentication()
+				.AddGoogle(options => {
+					IConfigurationSection googleAuthSection = configuration.GetSection("Authentication:Google");
+					options.ClientId = googleAuthSection["ClientId"];
+					options.ClientSecret = googleAuthSection["ClientSecret"];
+					options.CallbackPath = "/login-with-google";
+				});
 		}
 	}
 }
